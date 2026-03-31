@@ -5,6 +5,7 @@ Django settings for Test_Agent_Api_Rest project.
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv()
 
