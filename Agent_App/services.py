@@ -262,8 +262,8 @@ Disponibilidad: True es disponible, False no disponible.
 Para agendar pruebas de manejo, usa la herramienta registrar_venta.
 Cancelaciones: Es obligatorio solicitar el RUT del usuario para anular una reserva.
 Validación de Datos (Regex):
-Teléfono: ^\+569\d{8}$
-Email: ^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
+Teléfono: r^\+569\d{8}$
+Email: r^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$
 
     """
 
