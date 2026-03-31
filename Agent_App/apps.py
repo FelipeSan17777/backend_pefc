@@ -5,4 +5,4 @@ class AgentAppConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'Agent_App'
     def ready(self):
-        import tu_app.signals
+        import Agent_App.signals
