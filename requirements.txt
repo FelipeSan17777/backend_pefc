@@ -1,13 +1,12 @@
-Django==4.2
+Django==4.2.11
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 psycopg2-binary==2.9.9
 dj-database-url==2.1.0
 python-dotenv==1.0.1
-python-dateutil==2.8.2
-pytz==2023.3
 requests==2.31.0
 langchain==0.1.0
-langchain-google-generativeai
+langchain-google-genai==0.0.12
+google-generativeai==0.4.1
 langgraph==0.0.43
 gunicorn==21.2.0
