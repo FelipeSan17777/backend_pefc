@@ -32,8 +32,6 @@ INSTALLED_APPS = [
 
     "rest_framework",
     "corsheaders",
-
-    "Agent_App",
 ]
 
 
