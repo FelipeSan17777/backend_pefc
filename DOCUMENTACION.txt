@@ -1,0 +1,246 @@
+================================================================================
+DOCUMENTACIÓN DEL PROYECTO: TEST AGENT API REST
+================================================================================
+
+1. DESCRIPCIÓN GENERAL
+================================================================================
+Test Agent API Rest es una aplicación Django que proporciona una API REST para 
+gestionar una aplicación de agentes que trabajan con clientes y vehículos (autos).
+
+La aplicación permite:
+- Gestionar clientes (crear, actualizar, eliminar)
+- Gestionar autos/vehículos
+- Registrar conversaciones entre agentes y clientes
+- Rastrear el estado de las conversaciones
+- Consultar métodos de pago
+- Consultar colores y estados de vehículos
+
+
+2. ESTRUCTURA DEL PROYECTO
+================================================================================
+
+CARPETAS PRINCIPALES:
+  - Agent_App/          → Aplicación principal de Django
+  - Test_Agent_Api_Rest/ → Configuración del proyecto Django
+  - static/             → Archivos estáticos (CSS, JS, imágenes)
+
+ARCHIVOS PRINCIPALES:
+  - manage.py                → Comando de administración de Django
+  - db.sqlite3              → Base de datos SQLite
+  - .gitignore              → Archivo de configuración de Git
+
+
+3. ESTRUCTURA DE Agent_App/
+================================================================================
+
+MODELOS (models.py):
+  - Cliente           → Información de los clientes
+  - Auto              → Información de los vehículos
+  - EstadoConversacion → Estado de las conversaciones entre agentes y clientes
+
+SERIALIZERS (serializers.py):
+  Convierte modelos a JSON para la API REST
+
+VISTAS Y URLS (urls.py, api.py):
+  Define los endpoints de la API REST
+
+SERVICIOS (services.py):
+  Lógica de negocios de la aplicación
+
+ARCHIVOS ESPECÍFICOS:
+  - autos.py          → Lógica específica de autos
+  - clientes.py       → Lógica específica de clientes
+
+
+4. SCRIPTS DE DATOS
+================================================================================
+
+cargar_autos.py:
+  Script para cargar datos iniciales de autos en la base de datos
+  Uso: python cargar_autos.py
+
+cargar_clientes.py:
+  Script para cargar datos iniciales de clientes en la base de datos
+  Uso: python cargar_clientes.py
+
+change.py:
+  Script para realizar cambios o migraciones de datos
+
+
+5. MIGRACIONES
+================================================================================
+
+Las migraciones Django están en: Agent_App/migrations/
+
+Migraciones existentes:
+  0001_initial.py                      → Creación inicial de modelos
+  0002_cliente_rename_colores_auto...  → Cambios en campos de Auto y Cliente
+  0003_cliente_metodo_pago...          → Agregó campo método_pago a Cliente
+  0004_estadoconversacion.py           → Creó modelo EstadoConversacion
+  0005_estadoconversacion_mensajes.py  → Agregó campo mensajes
+  0006_auto_comprador.py               → Agregó relación comprador
+  0007_remove_estadoconversacion...    → Removió campos innecesarios
+
+
+6. CONFIGURACIÓN
+================================================================================
+
+ARCHIVO: Test_Agent_Api_Rest/settings.py
+  Contiene la configuración general del proyecto Django:
+  - Base de datos
+  - Aplicaciones instaladas
+  - Middleware
+  - Configuración de CORS
+  - Claves secretas
+
+ARCHIVO: Test_Agent_Api_Rest/urls.py
+  Enrutamiento principal de la API REST
+
+ARCHIVO: Test_Agent_Api_Rest/wsgi.py
+  Configuración para producción
+
+
+7. INSTALACIÓN Y CONFIGURACIÓN
+================================================================================
+
+REQUISITOS:
+  - Python 3.7+
+  - Django
+  - Django REST Framework
+  - Otras dependencias (verificar requirements.txt si existe)
+
+PASOS DE INSTALACIÓN:
+
+  1. Crear entorno virtual:
+     python -m venv venv
+     
+  2. Activar entorno virtual:
+     Windows:  venv\Scripts\activate
+     Linux/Mac: source venv/bin/activate
+
+  3. Instalar dependencias:
+     pip install -r requirements.txt
+     (si no existe, instalar: pip install django djangorestframework)
+
+  4. Ejecutar migraciones:
+     python manage.py migrate
+
+  5. Cargar datos iniciales:
+     python cargar_clientes.py
+     python cargar_autos.py
+
+  6. Crear superusuario (opcional):
+     python manage.py createsuperuser
+
+  7. Ejecutar servidor de desarrollo:
+     python manage.py runserver
+
+
+8. USO DE LA API
+================================================================================
+
+El servidor corre en: http://localhost:8000/
+
+ENDPOINTS PRINCIPALES (se definen en urls.py):
+  - /api/clientes/          → Gestión de clientes
+  - /api/autos/             → Gestión de autos
+  - /api/conversaciones/    → Gestión de conversaciones
+  - /admin/                 → Panel administrativo de Django
+
+
+9. MODELOS Y CAMPOS
+================================================================================
+
+CLIENTE:
+  - id
+  - nombre
+  - apellido
+  - email
+  - teléfono
+  - método_pago
+  - fecha_creación
+  - estado
+
+AUTO:
+  - id
+  - marca
+  - modelo
+  - año
+  - color
+  - estado
+  - precio
+  - comprador (FK a Cliente)
+  - fecha_creación
+
+ESTADO CONVERSACIÓN:
+  - id
+  - cliente (FK)
+  - agente
+  - estado
+  - mensajes
+  - fecha_inicio
+  - fecha_fin
+
+
+10. COMANDOS ÚTILES
+================================================================================
+
+Ejecutar servidor:
+  python manage.py runserver
+
+Crear migraciones:
+  python manage.py makemigrations
+
+Aplicar migraciones:
+  python manage.py migrate
+
+Panel administrativo:
+  python manage.py createsuperuser
+  Luego acceder a: http://localhost:8000/admin/
+
+Ver SQL generado:
+  python manage.py sqlmigrate Agent_App 0001
+
+Limpiar base de datos:
+  python manage.py flush
+
+
+11. NOTAS IMPORTANTES
+================================================================================
+
+- La base de datos actual es SQLite (db.sqlite3)
+- Para producción, se recomienda usar PostgreSQL
+- El proyecto incluye .gitignore para evitar commitear archivos innecesarios
+- Verificar que todas las migraciones estén aplicadas antes de usar la API
+- Asegurar que las variables de entorno estén configuradas en settings.py
+
+
+12. PROBLEMAS COMUNES
+================================================================================
+
+Error: "py manage.py runserver" falla con Exit Code 1
+  → Verificar que todas las migraciones estén aplicadas
+  → Revisar que la base de datos no esté corrupta
+  → Ejecutar: python manage.py migrate
+
+Módulos no encontrados:
+  → Asegurar que el entorno virtual está activado
+  → Instalar dependencias: pip install -r requirements.txt
+
+Puerto 8000 en uso:
+  → python manage.py runserver 8001 (usar otro puerto)
+
+
+13. PRÓXIMOS PASOS
+================================================================================
+
+- Documentar los endpoints específicos de la API
+- Crear tests para los modelos y API
+- Implementar autenticación JWT si es necesario
+- Configurar CORS según los clientes que vayan a usar la API
+- Preparar configuración para producción
+
+
+================================================================================
+Última actualización: Febrero 2026
+================================================================================
