@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: agent-api
+    runtime: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python manage.py migrate && gunicorn Test_Agent_Api_Rest.wsgi"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.3
