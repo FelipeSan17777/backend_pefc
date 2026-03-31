@@ -5,7 +5,7 @@ from django.apps import apps
 @receiver(post_migrate)
 def cargar_datos_iniciales(sender, **kwargs):
 
-    if sender.name != "tu_app":
+    if sender.name != "Agent_App":
         return
 
     from .cargar_autos import cargar_autos
